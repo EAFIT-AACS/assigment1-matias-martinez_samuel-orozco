@@ -25,7 +25,7 @@
   - C++ (compiled using g++)
 - **Tools Used:**  
   - Visual Studio Code (Editor)  
-  - MSYS2 / MinGW (for compiling C++ code on Windows)  
+  - MSYS2 / MinGW 
   - Command Prompt / Terminal (for compilation and execution)
 ---
 ## How to run the Implementation❓
