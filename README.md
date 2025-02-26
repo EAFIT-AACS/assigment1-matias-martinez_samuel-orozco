@@ -1,4 +1,5 @@
 
+
 # DFA Minimization Algorithm Implementation🚀
 
 > **Book of reference 🧾:**  
@@ -86,12 +87,12 @@ The algorithm is designed to minimize a Deterministic Finite Automaton (DFA) by 
    - **Code Fragment:**
      ```cpp
      // Mark pairs where one state is final and the other is not
-     for (int i = 0; i < dfa.numStates; i++) {
-         for (int j = i + 1; j < dfa.numStates; j++) {
-             bool iIsFinal = dfa.finalStates.count(i);
-             bool jIsFinal = dfa.finalStates.count(j);
-             if (iIsFinal != jIsFinal) {
-                 distinguishable[i][j] = true;
+     for (int i = 0; i < machine.totalStates; i++) {
+         for (int j = i + 1; j < machine.totalStates; j++) {
+             isAcceptingState_i = machine.acceptingStates.count(i);
+             bool isAcceptingState_j = machine.acceptingStates.count(j);
+             if (isAcceptingState_i!= isAcceptingState_j) {
+                 diffMatrix[i][j] = true;
              }
          }
      }
@@ -99,61 +100,70 @@ The algorithm is designed to minimize a Deterministic Finite Automaton (DFA) by 
 
 2. **Iterative Refinement:**
    - **Objective:** Iteratively check pairs of states. If, for any symbol, the transitions from the two states lead to a pair that is already marked as distinguishable, mark the current pair as distinguishable.
-   - **Code Fragment:**
-     ```cpp
-     bool changed;
-     do {
-         changed = false;
-         for (int i = 0; i < dfa.numStates; i++) {
-             for (int j = i + 1; j < dfa.numStates; j++) {
-                 if (!distinguishable[i][j]) {
-                     for (size_t k = 0; k < dfa.alphabet.size(); k++) {
-                         int nextI = dfa.transitionTable[i][k];
-                         int nextJ = dfa.transitionTable[j][k];
-                         if (nextI != nextJ) {
-                             int minState = min(nextI, nextJ);
-                             int maxState = max(nextI, nextJ);
-                             if (distinguishable[minState][maxState]) {
-                                 distinguishable[i][j] = true;
-                                 changed = true;
-                                 break;
-                             }
-                         }
-                     }
-                 }
-             }
-         }
-     } while (changed);
-     ```
+- **Code Fragment:**
+  ```cpp
+  bool changeOccurred;
+  do {
+      changeOccurred = false;  // Reset the change indicator for each iteration
+      for (int i = 0; i < machine.totalStates; i++) {
+          for (int j = i + 1; j < machine.totalStates; j++) {
+              // Process the pair only if it has not been marked as distinguishable yet
+              if (!diffMatrix[i][j]) {
+                  // Iterate over each symbol of the alphabet to check transitions
+                  for (size_t k = 0; k < machine.charSet.size(); k++) {
+                      // Get the state transitioned to from i and j with the k-th symbol
+                      int nextState1 = machine.transTable[i][k];
+                      int nextState2 = machine.transTable[j][k];
+                      // If the transitions lead to different states
+                      if (nextState1 != nextState2) {
+                          // Ensure the pair is compared in order (smaller, larger)
+                          int minState = min(nextState1, nextState2);
+                          int maxState = max(nextState1, nextState2);
+                          // If the state pair from the transition is already marked as distinguishable,
+                          // mark the pair (i,j) as distinguishable.
+                          if (diffMatrix[minState][maxState]) {
+                              diffMatrix[i][j] = true;
+                              changeOccurred = true;  // Indicate that a change occurred in this iteration
+                              break;         // Exit the symbol loop as the pair is now distinguishable
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  } while (changeOccurred); // Repeat until no new changes are detected
+  
+
 
 3. **Collection of Equivalent States:**
    - **Objective:** After the iterative marking process, pairs of states that remain unmarked are considered equivalent. These pairs can then be merged to form the minimized DFA.
    - **Code Fragment:**
-     ```cpp
-     for (int i = 0; i < dfa.numStates; i++) {
-         for (int j = i + 1; j < dfa.numStates; j++) {
-             if (!distinguishable[i][j]) {
-                 equivalentStates.insert({min(i, j), max(i, j)});
-             }
-         }
-     }
-     ```
+```cpp
+for (int i = 0; i < machine.totalStates; i++) {
+    for (int j = i + 1; j < machine.totalStates; j++) {
+        if (!diffMatrix[i][j]) {  // If the pair (i,j) is not distinguishable
+            equivSet.insert({min(i, j), max(i, j)});
+        }
+    }
+}
+   ```
 
 ### **Output Generation**
 
 - The minimized DFA's equivalent state pairs are printed on a single line for each case.
 - **Output Code Snippet:**
   ```cpp
-  if (!equivalentStates.empty()) {
-      bool first = true;
-      for (const auto &p : equivalentStates) {
-          if (!first) cout << " ";
-          cout << "(" << p.first << ", " << p.second << ")";
-          first = false;
+  if (!equivSet.empty()) {
+      bool firstPair = true;
+      // Iterate through each pair in the set
+      for (const auto &p : equivSet) {
+          if (!firstPair) cout << " ";
+          cout << "(" << statePair.first << ", " << statePair.second << ")";
+          firstPair = false;
       }
       cout << endl;
   } else {
-      cout << endl;
+      cout << endl; // Print an empty line if there are no equivalent pairs
   }
 
 
