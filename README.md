@@ -89,7 +89,7 @@ The algorithm is designed to minimize a Deterministic Finite Automaton (DFA) by 
      // Mark pairs where one state is final and the other is not
      for (int i = 0; i < machine.totalStates; i++) {
          for (int j = i + 1; j < machine.totalStates; j++) {
-             isAcceptingState_i = machine.acceptingStates.count(i);
+             bool isAcceptingState_i = machine.acceptingStates.count(i);
              bool isAcceptingState_j = machine.acceptingStates.count(j);
              if (isAcceptingState_i!= isAcceptingState_j) {
                  diffMatrix[i][j] = true;
