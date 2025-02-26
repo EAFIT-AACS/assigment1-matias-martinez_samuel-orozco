@@ -7,7 +7,6 @@
 > In this project, we implement the DFA minimization algorithm as described by Kozen (1997). Our objective is to identify equivalent states in a DFA and collapse them, resulting in a minimized automaton that accepts the same language as the original in a c++ program.
 > 
 ---
-
 ## Student Information 👨‍🎓
 
 - **Full Names:**  
@@ -18,21 +17,16 @@
   Classroom Wednesdays SI2002-2 (7309)
 
 ---
-
 ## Environment and Tools 💻
-
 - **Operating System:**  
   - Windows 11
 - **Programming Language:**  
-  C++ (compiled using g++)
-
+  - C++ (compiled using g++)
 - **Tools Used:**  
   - Visual Studio Code (Editor)  
   - MSYS2 / MinGW (for compiling C++ code on Windows)  
   - Command Prompt / Terminal (for compilation and execution)
-
 ---
-
 ## How to run the Implementation❓
 
 1. **Compilation:**
@@ -49,9 +43,36 @@
      ./dfa_minimization
      ```
    - The program will read the DFA from `Test.txt` and print out the pairs of equivalent states in lexicographical order.
+---
+# Input and output ✌️
+**Input Format:**
+
+1. A line with the number of cases `c > 0`.
+2. For each case:
+   - A line with a number `n > 0` (number of states).
+   - A line with the alphabet (symbols separated by spaces).
+   - A line with the final states (space-separated).
+   - `n` lines representing the transition table (each line: state index followed by transitions).
+
+**Output Format:**
+- For each case, a single line is printed containing the equivalent state pairs in lexicographical order, with the pairs separated by spaces.
+---
+**Example:**
+*Input:*
+1
+6
+a
+1 4
+0 1
+1 2
+2 3
+3 4
+4 5
+5 0
+*Output:*
+(0,3) (1,4) (2,5)
 
 ---
-
 ## 🟢 Explanation of the Algorithm 
 
 The algorithm is designed to minimize a Deterministic Finite Automaton (DFA) by identifying and merging equivalent states. 
@@ -132,4 +153,6 @@ The algorithm is designed to minimize a Deterministic Finite Automaton (DFA) by 
   } else {
       cout << endl;
   }
+
+
 
