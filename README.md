@@ -158,7 +158,7 @@ for (int i = 0; i < machine.totalStates; i++) {
       // Iterate through each pair in the set
       for (const auto &p : equivSet) {
           if (!firstPair) cout << " ";
-          cout << "(" << statePair.first << ", " << statePair.second << ")";
+          cout << "(" << statePair.first << "," << statePair.second << ")";
           firstPair = false;
       }
       cout << endl;
