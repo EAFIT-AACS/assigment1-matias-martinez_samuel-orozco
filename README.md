@@ -59,6 +59,7 @@
 ---
 **Example:**
 *Input:*
+```
 1
 6
 a
@@ -69,8 +70,9 @@ a
 3 4
 4 5
 5 0
+```
 *Output:*
-(0,3) (1,4) (2,5)
+`(0,3) (1,4) (2,5)`
 
 ---
 ## 🟢 Explanation of the Algorithm 
