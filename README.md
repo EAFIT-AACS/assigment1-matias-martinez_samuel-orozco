@@ -10,8 +10,8 @@
 ## Student Information 👨‍🎓
 
 - **Full Names:**  
-  Matias Martinez Moreno
-  Samuel Orozco Valencia
+  - Matias Martinez Moreno
+  - Samuel Orozco Valencia
 
 - **Class Number:**  
   Classroom Wednesdays SI2002-2 (7309)
