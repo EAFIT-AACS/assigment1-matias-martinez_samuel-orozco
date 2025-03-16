@@ -169,4 +169,4 @@ set<pair<int, int>> minimizeDFA(DFA &machine) {
         }
     }
     return equivSet;  // Return the set of the equivalent state pairs
-}
+} 
